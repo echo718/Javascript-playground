@@ -2,6 +2,7 @@
 
 var variables=-1;
 window.onload=function(){
+    // 初始渲染全部item
     function get_content(){
         var objs=[];
         document.getElementById("display").innerHTML=null;
@@ -14,7 +15,7 @@ window.onload=function(){
                     // 创建每个item
                     objs[j] =document.createElement("div");
                     objs[j].style="text-align:center;";
-                    objs[j].className=" col-sm-6 col-lg-3 mt-5 block ";
+                    objs[j].className=" col-sm-4 col-lg-2 mt-5 block ";
                     // 创建每个item里面的img
                     var img=document.createElement("img");
                     img.className="img";
@@ -45,14 +46,15 @@ window.onload=function(){
               
         }  
     }  
-    
+    // 筛选价格和排序
     function get_filter(){
 
         // price filter
         var price=document.createElement("div");
         document.getElementById("filter").appendChild(price);
-        price.className="col-4 pt-4";
-        price.style="background-color:yellow;";
+        price.className="col-lg-4 pt-4 mb-2";
+        price.style="white-space:nowrap;"
+        
         // price文本
         var price_txt=document.createElement("span");
         price.appendChild(price_txt);
@@ -83,7 +85,7 @@ window.onload=function(){
         price_btn.id="price_filter";
         price_btn.innerHTML="filter";
         price_btn.style="width:70px;height:30px;background:green;color:white;margin-left:2%;";
-
+        // 点击价格筛选调用get_price函数
         document.getElementById("price_filter").onclick=function(){
            
             var option_value= price_select.options.selectedIndex;
@@ -107,8 +109,9 @@ window.onload=function(){
         // Sort filter
         var sort=document.createElement("div");
         document.getElementById("filter").appendChild(sort);
-        sort.className="col-4 pt-4";
-        sort.style="background-color:yellow;";
+        sort.className="col-lg-4 pt-4 mb-2";
+        sort.style="white-space:nowrap;"
+        
 
         // sort 文本
         var sort_txt=document.createElement("span");
@@ -171,7 +174,7 @@ window.onload=function(){
                 for(let i=0;i<arr_new_final.length;i++){
                     objs[i] =document.createElement("div");
                     objs[i].style="text-align:center;";
-                    objs[i].className=" col-sm-6 col-lg-3 mt-5 block ";
+                    objs[i].className=" col-sm-4 col-lg-2 mt-5 block ";
                     document.getElementById("display").appendChild(objs[i]);
 
                    
@@ -237,7 +240,7 @@ window.onload=function(){
             for(let i=0;i<arr_new_final.length;i++){
                 objs[i] =document.createElement("div");
                 objs[i].style="text-align:center;";
-                objs[i].className=" col-sm-6 col-lg-3 mt-5 block ";
+                objs[i].className=" col-sm-4 col-lg-2 mt-5 block ";
                 document.getElementById("display").appendChild(objs[i]);
 
                
@@ -267,13 +270,13 @@ window.onload=function(){
 
     var price_index=0;
     var z=0;
-
+    // 被调用 来筛选价格区间
     function get_price(variables){
         switch(variables){
             case 1:
                 var price_set=new Array();
                 document.getElementById("display").innerHTML=null;
-                
+                // 得到符合价格区间的prodId的array:price_set
                 for(let price_select=1;price_select<rawdata.length;price_select++){
                     if(rawdata[price_select].price>0 && rawdata[price_select].price<50){
                         
@@ -286,18 +289,23 @@ window.onload=function(){
                 var objs_price=[];
                 for(z=0;z<price_set.length;z++){
                    for(let a=0;a<rawdata.length;a++){
+                    //    如果price_set中prodId在rawdata中存在，就显示在#display
                        if(rawdata[a].prodId==price_set[z]){
                             if(rawdata[a].productMedia !=null){
                                 for(let j=0;j<rawdata[a].productMedia.length;j++){
                                     // 创建每个item
                                     objs_price[j] =document.createElement("div");
                                     objs_price[j].style="text-align:center;";
-                                    objs_price[j].className=" col-sm-6 col-lg-3 mt-5 block ";
+                                    objs_price[j].className=" col-sm-4 col-lg-2 mt-5 block ";
                                     // 创建每个item里面的img
+                                    
+
                                     var img=document.createElement("img");
                                     img.style="width:100%;height:200px;"
+                                    img.className="img";
                                     img.src="https://storage.googleapis.com/luxe_media/wwwroot/"+rawdata[a].productMedia[j].url;
                                     objs_price[j].appendChild(img);  
+                                    
                                     // 创建每个item里面的title
                                     var title=document.createElement("div");
                                     title.className="title";
@@ -347,10 +355,11 @@ window.onload=function(){
                                         // 创建每个item
                                         objs_price[j] =document.createElement("div");
                                         objs_price[j].style="text-align:center;";
-                                        objs_price[j].className=" col-sm-6 col-lg-3 mt-5 block ";
+                                        objs_price[j].className=" col-sm-4 col-lg-2 mt-5 block ";
                                         // 创建每个item里面的img
                                         var img=document.createElement("img");
-                                        img.style="width:100%;height:200px;"
+                                        img.style="width:100%;height:200px;";
+                                        img.className="img";
                                         img.src="https://storage.googleapis.com/luxe_media/wwwroot/"+rawdata[a].productMedia[j].url;
                                         objs_price[j].appendChild(img);  
                                         // 创建每个item里面的title
