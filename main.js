@@ -1,4 +1,4 @@
-var variables=-1;
+var variables=-1;//price功能使用
 var price_index=0;
 var z=0;//category用到
 var x=0;//price用到
@@ -6,8 +6,8 @@ var category_prodID=new Array();
 var j=0,y=0;
 var price_variable=0,category_variable=0;
 var cate_txt=null;
+
 window.onload=function(){
-    
     get_content();
     get_filter();
 }
@@ -33,8 +33,16 @@ function get_content(){
                 objs[j].appendChild(img);  
                 // 创建每个item里面的title
                 var title=document.createElement("div");
+                title.style="height:75px;";
+                var title_link=document.createElement("a");
+                title.appendChild(title_link);
+
+                var id=rawdata[i].productMedia[j].id;
+                title_link.href="page.html?data="+id;
+              
                 title.className="title";
-                title.style="height:75px;"
+                title_link.style="height:75px;cursor:pointer;";
+              
                 // 创建价格
                 var price=document.createElement("div");
                 price.className="price";
@@ -44,7 +52,7 @@ function get_content(){
                 for(let x=0;x<rawdata.length;x++){
                     
                     if(prodId==rawdata[x].prodId){
-                        title.innerHTML=rawdata[x].title;
+                        title_link.innerHTML=rawdata[x].title;
                         price.innerHTML="Price:$"+rawdata[x].price;
                     }
                 }
@@ -395,8 +403,6 @@ function get_filter(){
 
 }
 
-
-
 // 被调用 来筛选价格区间
 function get_price(variables){
     switch(variables){
@@ -404,10 +410,10 @@ function get_price(variables){
             x=0;
             document.getElementById("display").innerHTML=null;
             var price_set=new Array();
-            console.log(cate_txt)
+           
             if(cate_txt==null || cate_txt=="All"){
                   // 如果category没有选择任何-得到符合价格区间的prodId的array:price_set
-               console.log(1)
+              
                 for(let price_select=1;price_select<rawdata.length;price_select++){
                     if(rawdata[price_select].price>0 && rawdata[price_select].price<50){
                         
@@ -433,7 +439,7 @@ function get_price(variables){
                 price_set=cate_prodID_new;
             }
             var objs_price=[];
-            console.log(price_set);
+           
             for(z=0;z<price_set.length;z++){
                 for(let a=0;a<rawdata.length;a++){
                     if(rawdata[a].prodId==price_set[z]){
@@ -457,8 +463,17 @@ function get_price(variables){
                                 // 创建每个item里面的title
                                 var title=document.createElement("div");
                                 title.className="title";
-                                title.style="height:75px;"
-                
+                                title.style="height:75px;";
+                                                                
+                                var title_link=document.createElement("a");
+                                title.appendChild(title_link);
+                                var id=rawdata[a].productMedia[j].id;
+                                title_link.href="page.html?data="+id;
+                            
+                                
+                                title_link.style="height:75px;cursor:pointer;";
+
+
                                 // 创建价格
                                 var price=document.createElement("div");
                                 price.className="price";
@@ -467,7 +482,7 @@ function get_price(variables){
                                 for(let x=0;x<rawdata.length;x++){
                                     
                                     if(prodId==rawdata[x].prodId){
-                                        title.innerHTML=rawdata[x].title;
+                                        title_link.innerHTML=rawdata[x].title;
                                         price.innerHTML="Price:$"+rawdata[x].price;
                                     }
                                 }
@@ -484,6 +499,7 @@ function get_price(variables){
             break;
         case 2:
             x=0;
+           
             document.getElementById("display").innerHTML=null;
             var price_set=new Array();
             
@@ -516,11 +532,16 @@ function get_price(variables){
             }
            
                 var objs_price=[];
+                
                 for(z=0;z<price_set.length;z++){
+                  
                    for(let a=0;a<rawdata.length;a++){
-                       if(rawdata[a].prodId==price_set[z].prodId){
+                   
+                       if(rawdata[a].prodId==price_set[z]){
+
                             if(rawdata[a].productMedia !=null){
                                 for(let j=0;j<rawdata[a].productMedia.length;j++){
+                                    
                                     // 创建每个item
                                     objs_price[j] =document.createElement("div");
                                     objs_price[j].style="text-align:center;";
@@ -534,7 +555,15 @@ function get_price(variables){
                                     // 创建每个item里面的title
                                     var title=document.createElement("div");
                                     title.className="title";
-                                    title.style="height:75px;"
+                                    title.style="height:75px;";
+                                                                    
+                                    var title_link=document.createElement("a");
+                                    title.appendChild(title_link);
+                                    var id=rawdata[a].productMedia[j].id;
+                                    title_link.href="page.html?data="+id;
+                                
+                                    
+                                    title_link.style="height:75px;cursor:pointer;";
                                     // 创建价格
                                     var price=document.createElement("div");
                                     price.className="price";
@@ -543,7 +572,7 @@ function get_price(variables){
                                     for(let x=0;x<rawdata.length;x++){
                                         
                                         if(prodId==rawdata[x].prodId){
-                                            title.innerHTML=rawdata[x].title;
+                                            title_link.innerHTML=rawdata[x].title;
                                             price.innerHTML="Price:$"+rawdata[x].price;
                                         }
                                     }
@@ -561,7 +590,7 @@ function get_price(variables){
             x=0;
             document.getElementById("display").innerHTML=null;
             var price_set=new Array();
-            console.log(cate_txt)
+            
             if(cate_txt==null  || cate_txt=="All"){
                   // 如果category没有选择任何-得到符合价格区间的prodId的array:price_set
                
@@ -572,7 +601,7 @@ function get_price(variables){
                         x++;
                     }
                 }
-                console.log(price_set)
+            
             }else{
               //  调用get_category得到符合category和price区间的prodId 数组 cate_prodID_new
                 var cate_prodID= get_category(cate_txt);
@@ -610,6 +639,14 @@ function get_price(variables){
                                 var title=document.createElement("div");
                                 title.className="title";
                                 title.style="height:75px;"
+                                                                
+                                var title_link=document.createElement("a");
+                                title.appendChild(title_link);
+                                var id=rawdata[a].productMedia[j].id;
+                                title_link.href="page.html?data="+id;
+                            
+                                
+                                title_link.style="height:75px;cursor:pointer;";
                                 // 创建价格
                                 var price=document.createElement("div");
                                 price.className="price";
@@ -618,7 +655,7 @@ function get_price(variables){
                                 for(let x=0;x<rawdata.length;x++){
                                     
                                     if(prodId==rawdata[x].prodId){
-                                        title.innerHTML=rawdata[x].title;
+                                        title_link.innerHTML=rawdata[x].title;
                                         price.innerHTML="Price:$"+rawdata[x].price;
                                     }
                                 }
@@ -685,6 +722,14 @@ function get_price(variables){
                                 var title=document.createElement("div");
                                 title.className="title";
                                 title.style="height:75px;"
+                                                                
+                                var title_link=document.createElement("a");
+                                title.appendChild(title_link);
+                                var id=rawdata[a].productMedia[j].id;
+                                title_link.href="page.html?data="+id;
+                            
+                                
+                                title_link.style="height:75px;cursor:pointer;";
                                 // 创建价格
                                 var price=document.createElement("div");
                                 price.className="price";
@@ -693,7 +738,7 @@ function get_price(variables){
                                 for(let x=0;x<rawdata.length;x++){
                                     
                                     if(prodId==rawdata[x].prodId){
-                                        title.innerHTML=rawdata[x].title;
+                                        title_link.innerHTML=rawdata[x].title;
                                         price.innerHTML="Price:$"+rawdata[x].price;
                                     }
                                 }
@@ -760,6 +805,14 @@ function get_price(variables){
                                     var title=document.createElement("div");
                                     title.className="title";
                                     title.style="height:75px;"
+                                                                    
+                                    var title_link=document.createElement("a");
+                                    title.appendChild(title_link);
+                                    var id=rawdata[a].productMedia[j].id;
+                                    title_link.href="page.html?data="+id;
+                                
+                                    
+                                    title_link.style="height:75px;cursor:pointer;";
                                     // 创建价格
                                     var price=document.createElement("div");
                                     price.className="price";
@@ -768,7 +821,7 @@ function get_price(variables){
                                     for(let x=0;x<rawdata.length;x++){
                                         
                                         if(prodId==rawdata[x].prodId){
-                                            title.innerHTML=rawdata[x].title;
+                                            title_link.innerHTML=rawdata[x].title;
                                             price.innerHTML="Price:$"+rawdata[x].price;
                                         }
                                     }
@@ -836,6 +889,14 @@ function get_price(variables){
                                     var title=document.createElement("div");
                                     title.className="title";
                                     title.style="height:75px;"
+                                                                    
+                                    var title_link=document.createElement("a");
+                                    title.appendChild(title_link);
+                                    var id=rawdata[a].productMedia[j].id;
+                                    title_link.href="page.html?data="+id;
+                                
+                                    
+                                    title_link.style="height:75px;cursor:pointer;";
                                     // 创建价格
                                     var price=document.createElement("div");
                                     price.className="price";
@@ -844,7 +905,7 @@ function get_price(variables){
                                     for(let x=0;x<rawdata.length;x++){
                                         
                                         if(prodId==rawdata[x].prodId){
-                                            title.innerHTML=rawdata[x].title;
+                                            title_link.innerHTML=rawdata[x].title;
                                             price.innerHTML="Price:$"+rawdata[x].price;
                                         }
                                     }
@@ -900,7 +961,7 @@ function get_category(category_variables){
     }
    
     
-   console.log(category_prodID)
+  
    //  得到联合价格筛选后的prodId和price
      var category_prodID_New=new Array();
      
@@ -1000,8 +1061,16 @@ function get_category(category_variables){
                          
                          // 创建每个item里面的title
                          var title=document.createElement("div");
-                         title.className="title";
-                         title.style="height:75px;"
+                        title.className="title";
+                        title.style="height:75px;"
+                                                        
+                        var title_link=document.createElement("a");
+                        title.appendChild(title_link);
+                        var id=rawdata[a].productMedia[j].id;
+                        title_link.href="page.html?data="+id;
+                    
+                        
+                        title_link.style="height:75px;cursor:pointer;";
          
                          // 创建价格
                          var price=document.createElement("div");
@@ -1011,7 +1080,7 @@ function get_category(category_variables){
                          for(let x=0;x<rawdata.length;x++){
                              
                              if(prodId==rawdata[x].prodId){
-                                 title.innerHTML=rawdata[x].title;
+                                title_link.innerHTML=rawdata[x].title;
                                  price.innerHTML="Price:$"+rawdata[x].price;
                              }
                          }
@@ -1028,3 +1097,30 @@ function get_category(category_variables){
      return category_prodID;
 
 }
+/*********************************** */
+
+
+// function open_page(url,elementID) {
+  
+  
+//    window.location.href='page/page.html';
+    
+//    console.log(url)
+//    var http=new XMLHttpRequest();
+//    http.onreadystatechange=function () {
+//     console.log(this.readyState,this.status)
+//        if(this.readyState==4 && this.status == 200){
+       
+//            var xhr = new XMLHttpRequest();
+//            xhr.withCredentials = true;
+//            $.get(url,function (data) {
+//                    ddata.type
+//                    document.getElementById(elementID).innerHTML=data;
+                   
+//            })
+//        }
+//    };
+//    http.open("GET", url,true);
+//    http.send();
+// }
+
